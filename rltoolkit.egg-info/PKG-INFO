@@ -1,0 +1,101 @@
+Metadata-Version: 2.1
+Name: rltoolkit
+Version: 0.1.0
+Summary: A simple and comprehensive reinforcement learning library
+Home-page: https://github.com/yourusername/rltoolkit
+Author: RL Toolkit Team
+Author-email: rltoolkit@example.com
+Project-URL: Bug Reports, https://github.com/yourusername/rltoolkit/issues
+Project-URL: Source, https://github.com/yourusername/rltoolkit
+Project-URL: Documentation, https://rltoolkit.readthedocs.io/
+Keywords: reinforcement learning,machine learning,q-learning,sarsa,dqn
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Provides-Extra: torch
+License-File: LICENSE
+
+# RLToolkit
+
+A simple and comprehensive reinforcement learning library for Python.
+
+## Features
+
+- **Easy-to-use algorithms**: Q-Learning, SARSA, and Deep Q-Network (DQN)
+- **Built-in environments**: GridWorld and Maze environments for testing
+- **Flexible policies**: Epsilon-greedy, greedy, and random policies
+- **Visualization tools**: Learning curve plotting and evaluation utilities
+- **Extensible**: Easy to add new algorithms and environments
+
+## Installation
+
+```bash
+pip install rltoolkit
+```
+
+## Quick Start
+
+```python
+from rltoolkit import QLearning, SimpleGridWorld, EpsilonGreedyPolicy
+from rltoolkit.utils import plot_learning_curve
+
+# Create environment and agent
+env = SimpleGridWorld(size=5)
+agent = QLearning(state_space=env.state_space, action_space=env.action_space)
+policy = EpsilonGreedyPolicy(epsilon=0.1)
+
+# Train the agent
+rewards = []
+for episode in range(1000):
+    state = env.reset()
+    total_reward = 0
+    done = False
+    
+    while not done:
+        action = policy.select_action(agent, state)
+        next_state, reward, done = env.step(action)
+        agent.update(state, action, reward, next_state)
+        state = next_state
+        total_reward += reward
+    
+    rewards.append(total_reward)
+
+# Plot learning curve
+plot_learning_curve(rewards)
+```
+
+## Available Algorithms
+
+- **Q-Learning**: Model-free off-policy algorithm
+- **SARSA**: Model-free on-policy algorithm  
+- **DQN**: Deep Q-Network for continuous state spaces
+
+## Available Environments
+
+- **SimpleGridWorld**: Classic grid world environment
+- **SimpleMaze**: Maze navigation environment
+
+## Documentation
+
+For detailed documentation and examples, visit: https://rltoolkit.readthedocs.io/
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
